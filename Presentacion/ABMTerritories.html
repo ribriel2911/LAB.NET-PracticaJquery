@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>AMBTerritories</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="ABMTerritories.js"></script>
+    <link rel="stylesheet" href="/bootstrap.css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="col-lg-12">
+            <div class="form-group col-lg-6">
+                <label for="txtTerritoryId">ID</label>
+                <TextBox ID="txtTerritoryId" runat="server" class="form-control" />
+                <label for="txtDescription">Description</label>
+                <TextBox ID="txtDescription" runat="server" class="form-control" />
+            </div>
+            <div class="dropdown-menu-right">
+                <label for="listRegion">Region</label>
+                <DropDownList ID="listRegion" runat="server" EventChanged="listRegion_EventChanged">
+                </DropDownList>
+                <Button ID="btnNuevo" runat="server" Text="Nuevo" OnClick="btnNuevo_Click" class="btn btn-default" />
+                <Button ID="btnModificar" runat="server" Text="Modificar" OnClick="btnModificar_Click" class="btn btn-info" />
+                <Button ID="btnAttach" runat="server" Text="Modificar-Attach" OnClick="btnAttach_Click" class="btn btn-btninfo" />
+                <Button ID="btnEliminar" runat="server" Text="Eliminar" OnClick="btnEliminar_Click" class="btn btn-danger" />
+            </div>
+            <GridView ID="Grid1" runat="server" OnSelectedIndexChanged="Grid1_SelectedIndexChanged" class="table table-striped">
+                <Columns>
+                    <CommandField ShowSelectButton="True" ButtonType="button" ControlStyle-CssClass="btn btn-success" />
+                </Columns>
+            </GridView>
+        </div>
+    </form>
+</body>
+</html>
