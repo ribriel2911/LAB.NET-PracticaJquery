@@ -1,35 +1,44 @@
 ﻿<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<html>
+<head>
+    <meta charset="utf-8" />
     <title>AMBTerritories</title>
+    <link rel="stylesheet" href="bootstrap.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="ABMTerritories.js"></script>
-    <link rel="stylesheet" href="/bootstrap.css" />
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1">
         <div class="col-lg-12">
             <div class="form-group col-lg-6">
                 <label for="txtTerritoryId">ID</label>
-                <TextBox ID="txtTerritoryId" runat="server" class="form-control" />
+                <input type="text" ID="txtTerritoryId" class="form-control" />
                 <label for="txtDescription">Description</label>
-                <TextBox ID="txtDescription" runat="server" class="form-control" />
+                <input type="text" ID="txtDescription" class="form-control" />
             </div>
             <div class="dropdown-menu-right">
                 <label for="listRegion">Region</label>
-                <DropDownList ID="listRegion" runat="server" EventChanged="listRegion_EventChanged">
-                </DropDownList>
-                <Button ID="btnNuevo" runat="server" Text="Nuevo" OnClick="btnNuevo_Click" class="btn btn-default" />
-                <Button ID="btnModificar" runat="server" Text="Modificar" OnClick="btnModificar_Click" class="btn btn-info" />
-                <Button ID="btnAttach" runat="server" Text="Modificar-Attach" OnClick="btnAttach_Click" class="btn btn-btninfo" />
-                <Button ID="btnEliminar" runat="server" Text="Eliminar" OnClick="btnEliminar_Click" class="btn btn-danger" />
+                <select ID="listRegion"  EventChanged="listRegion_EventChanged">
+                </select>
             </div>
-            <GridView ID="Grid1" runat="server" OnSelectedIndexChanged="Grid1_SelectedIndexChanged" class="table table-striped">
-                <Columns>
-                    <CommandField ShowSelectButton="True" ButtonType="button" ControlStyle-CssClass="btn btn-success" />
-                </Columns>
-            </GridView>
+            <div class="btn-group">
+                <button type="button" ID="btnNuevo" OnClick="btnNuevo_Click" class="btn btn-default">Nuevo</button>
+                <button type="button" ID="btnModificar" OnClick="btnModificar_Click" class="btn btn-info">Modificar</button>
+                <button type="button" ID="btnAttach" OnClick="btnAttach_Click" class="btn btn-info">Modificar-Attach</button>
+                <button type="button" ID="btnEliminar" OnClick="btnEliminar_Click" class="btn btn-danger">Eliminar</button>
+            </div>
+            <div id="results">
+                <label id="loading" style="display:none">Cargando...</label>
+                <table ID="Grid1" OnSelectedIndexChanged="Grid1_SelectedIndexChanged" class="table table-striped" style="display:none">
+                    <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>RegionID</th>
+                    </tr>
+                </table>
+            </div>
         </div>
     </form>
 </body>
