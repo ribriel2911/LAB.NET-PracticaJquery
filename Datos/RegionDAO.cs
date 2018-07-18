@@ -10,10 +10,16 @@ namespace Datos
 {
     public class RegionDAO : DAO<Region>
     {
+        NorthwindEntities contexto;
+
+        public RegionDAO()
+        {
+            contexto = new NorthwindEntities();
+            contexto.Configuration.ProxyCreationEnabled = false;
+        }
+
         public void Create(Region r)
         {
-            using (NorthwindEntities contexto = new NorthwindEntities())
-            {
                 Region region = r;
 
                 var query = contexto.Region.Where(c => c.RegionID == region.RegionID);
@@ -35,13 +41,11 @@ namespace Datos
                 contexto.Region.Add(region);
 
                 contexto.SaveChanges();
-            }
         }
 
         public void Delete(Region r)
         {
-            using (NorthwindEntities contexto = new NorthwindEntities())
-            {
+
                 Region region = r;
 
                 if (contexto.Region.Contains(region)) {
@@ -50,27 +54,25 @@ namespace Datos
                 }
                 
                 contexto.SaveChanges();
-            }
+
         }
 
         public List<Region> GetList()
         {
             List<Region> regs = null;
 
-            using (NorthwindEntities contexto = new NorthwindEntities())
-            {
+
                 regs = contexto.Region.ToList();
 
                 contexto.SaveChanges();
-            }
+
 
             return regs;
         }
 
         public void Update(Region r)
         {
-            using (NorthwindEntities contexto = new NorthwindEntities())
-            {
+
                 Region region = r;
 
                 var query = contexto.Region.Where(c => c.RegionID==region.RegionID);
@@ -81,13 +83,12 @@ namespace Datos
                 }
 
                 contexto.SaveChanges();
-            }
+
         }
 
         public void Attach(Region r)
         {
-            using (NorthwindEntities contexto = new NorthwindEntities())
-            {
+
                 Region region = r;
 
                 var query = contexto.Region.Max(c => c.RegionID) + 1;
@@ -97,7 +98,7 @@ namespace Datos
                 contexto.Region.Attach(region);
 
                 contexto.SaveChanges();
-            }
+
         }
     }
 }

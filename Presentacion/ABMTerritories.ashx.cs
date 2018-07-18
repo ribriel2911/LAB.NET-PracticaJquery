@@ -14,9 +14,21 @@ namespace Presentacion
 
         public void ProcessRequest(HttpContext context)
         {
+            string method = context.Request.QueryString["MethodName"];
             context.Response.ContentType = "application/json";
 
-            context.Response.Write(solver.GetTerritories());
+            switch (method)
+            {
+                case "GetTerritories":
+                    context.Response.Write(solver.GetTerritories());
+                    break;
+
+                case "GetRegions":
+                    context.Response.Write(solver.GetRegiones);
+                    break;
+            }
+
+            
         }
 
         public bool IsReusable

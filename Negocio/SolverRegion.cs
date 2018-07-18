@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Negocio
 {
@@ -16,24 +17,15 @@ namespace Negocio
         public SolverRegion()
         {
             dao = new RegionDAO();
-
-            CargarRegiones();
         }
 
-        public void CargarRegiones()
+        public string GetRegiones()
         {
-            regiones = new DataTable("Region");
-            regiones.Columns.Add(new DataColumn("RegionID", typeof(int)));
-            regiones.Columns.Add(new DataColumn("RegionDescription", typeof(string)));
+            string jsonOutput = string.Empty;
 
-            foreach (Region r in dao.GetList())
-            {
-                DataRow row = regiones.NewRow();
-                row["RegionID"] = r.RegionID;
-                row["RegionDescription"] = r.RegionDescription;
+            jsonOutput = new JavaScriptSerializer().Serialize(dao.GetList());
 
-                regiones.Rows.Add(row);
-            }
+            return jsonOutput;
         }
 
         public void CrearRegion(int id, string description)
@@ -45,7 +37,6 @@ namespace Negocio
             };
 
             dao.Create(r);
-            CargarRegiones();
         }
 
         public List<string> Descripciones()
@@ -99,7 +90,5 @@ namespace Negocio
 
             return ret;
         }
-
-        public DataTable GetRegiones => regiones;
     }
 }

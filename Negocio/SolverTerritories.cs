@@ -106,6 +106,6 @@ namespace Negocio
             return BuscarRegionID(region).RegionDescription;
         }
 
-        public List<string> GetRegiones => solRegions.Descripciones();
+        public string GetRegiones => solRegions.GetRegiones();
     }
 }
