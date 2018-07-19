@@ -14,21 +14,45 @@ namespace Presentacion
 
         public void ProcessRequest(HttpContext context)
         {
-            string method = context.Request.QueryString["MethodName"];
             context.Response.ContentType = "application/json";
+            string get = context.Request.QueryString["GetMethod"];
+                
 
-            switch (method)
+            switch (get)
             {
-                case "GetTerritories":
+                case "Territories":
                     context.Response.Write(solver.GetTerritories());
                     break;
 
-                case "GetRegions":
+                case "Regions":
                     context.Response.Write(solver.GetRegiones);
                     break;
             }
 
-            
+            string press = context.Request.QueryString["ButtonMethod"];
+
+            string id = context.Request.QueryString["TerritoryID"];
+            string description = context.Request.QueryString["TerritoryDescription"];
+            string region = context.Request.QueryString["RegionDescription"];
+
+            switch (press)
+            {
+                case "NewTerritory":
+                    solver.CrearTerritory(id, description, region);
+                    break;
+
+                case "ModifyTerritory":
+                    solver.ModificarTerritory(id, description, region);
+                    break;
+
+                case "AttachTerritory":
+                    solver.AdjuntarTerritory(id, description, region);
+                    break;
+
+                case "DeleteTerritory":
+                    solver.BorrarTerritory(id, description, region);
+                    break;
+            }
         }
 
         public bool IsReusable

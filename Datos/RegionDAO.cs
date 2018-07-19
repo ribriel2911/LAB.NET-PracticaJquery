@@ -70,6 +70,19 @@ namespace Datos
             return regs;
         }
 
+        public Region Search(string desc)
+        {
+            Region ret = null;
+            var query = contexto.Region.Where(c => c.RegionDescription == desc);
+           foreach(var c in query)
+            {
+                ret = new Region();
+                ret.RegionID = c.RegionID;
+                ret.RegionDescription = c.RegionDescription;
+            }
+            return ret;
+        }
+
         public void Update(Region r)
         {
 

@@ -5,7 +5,7 @@
         $.ajax({
             type: "GET",                                              // tipo de request 
             url: 'ABMTerritories.ashx',                                  // URL a donde vamos
-            data: "MethodName=GetTerritories",                                                // data permite enviar params al server
+            data: "GetMethod=Territories",                                                // data permite enviar params al server
             contentType: "application/json; charset=utf-8",            // tipo de contenido
             dataType: "json",                                          // como se enviaran los datos
             async: true,                                               // si es asincrónico o no
@@ -39,7 +39,7 @@
     $.ajax({
         type: "GET",                                              // tipo de request 
         url: 'ABMTerritories.ashx',                                  // URL a donde vamos
-        data: "MethodName=GetRegions",                                                // data permite enviar params al server
+        data: "GetMethod=Regions",                                                // data permite enviar params al server
         contentType: "application/json; charset=utf-8",            // tipo de contenido
         dataType: "json",                                          // como se enviaran los datos
         async: true,                                               // si es asincrónico o no
@@ -52,5 +52,69 @@
                 $('#listRegion').append(opt);
             }
         }
-   });
+    });
+
+    $('#btnNuevo').click(function () {
+        $.ajax({
+            type: "GET",
+            url: 'ABMTerritories.ashx',
+            data: {
+                ButtonMethod : "NewTerritory",
+                TerritoryID : $('#txtTerritoryId').val(),
+                TerritoryDescription : $('#txtDescription').val(),
+                RegionDescription : $('#listRegion').val()
+            },                                                // data permite enviar params al server
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true
+        });
+    });
+
+    $('#btnModificar').click(function () {
+        $.ajax({
+            type: "GET",
+            url: 'ABMTerritories.ashx',
+            data: {
+                ButtonMethod: "ModifyTerritory",
+                TerritoryID: $('#txtTerritoryId').val(),
+                TerritoryDescription: $('#txtDescription').val(),
+                RegionDescription: $('#listRegion').val()
+            },                                                // data permite enviar params al server
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true
+        });
+    });
+
+    $('#btnAttach').click(function () {
+        $.ajax({
+            type: "GET",
+            url: 'ABMTerritories.ashx',
+            data: {
+                ButtonMethod: "AttachTerritory",
+                TerritoryID: $('#txtTerritoryId').val(),
+                TerritoryDescription: $('#txtDescription').val(),
+                RegionDescription: $('#listRegion').val()
+            },                                                // data permite enviar params al server
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true
+        });
+    });
+
+    $('#btnEliminar').click(function () {
+        $.ajax({
+            type: "GET",
+            url: 'ABMTerritories.ashx',
+            data: {
+                ButtonMethod: "DeleteTerritory",
+                TerritoryID: $('#txtTerritoryId').val(),
+                TerritoryDescription: $('#txtDescription').val(),
+                RegionDescription: $('#listRegion').val()
+            },                                                // data permite enviar params al server
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true
+        });
+    });
 });

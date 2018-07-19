@@ -11,8 +11,7 @@ namespace Negocio
 {
     public class SolverRegion
     {
-        private DataTable regiones;
-        private DAO<Region> dao;
+        private RegionDAO dao;
 
         public SolverRegion()
         {
@@ -43,9 +42,9 @@ namespace Negocio
         {
             List<string> ret = new List<string>();
 
-            foreach(DataRow r in regiones.Rows)
+            foreach(Region r in dao.GetList())
             {
-                ret.Add((string) r["RegionDescription"]);
+                ret.Add((string) r.RegionDescription);
             }
 
             return ret;
@@ -53,39 +52,16 @@ namespace Negocio
 
         public Region BuscarDescripcion(string description)
         {
-            Region ret = null;
-
-            DataRow[] rows = regiones.Select(String.Format("RegionDescription='{0}'",description));
-
-            if (rows.Length != 0)
-            {
-                DataRow row = rows[0];
-
-                ret = new Region
-                {
-                    RegionID = (int)row["RegionID"],
-                    RegionDescription = (string)row["RegionDescription"]
-                };
-            }
-
-            return ret;
+            return dao.Search(description);
         }
 
         internal Region BuscarId(int id)
         {
             Region ret = null;
 
-            DataRow[] rows = regiones.Select(String.Format("RegionID='{0}'",id));
-
-            if (rows.Length != 0)
+            foreach (Region r in dao.GetList())
             {
-                DataRow row = rows[0];
-
-                ret = new Region
-                {
-                    RegionID = (int)row["RegionID"],
-                    RegionDescription = (string)row["RegionDescription"]
-                };
+                if (r.RegionID == id) return r;
             }
 
             return ret;

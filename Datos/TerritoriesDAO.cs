@@ -38,6 +38,8 @@ namespace Datos
 
         public void Delete(Territories t)
         {
+            using(NorthwindEntities contexto = new NorthwindEntities())
+            {
                 Territories territory = t;
 
                 var query = contexto.Territories.Where(c => c.TerritoryID.Equals(territory.TerritoryID));
@@ -48,6 +50,8 @@ namespace Datos
                 }
 
                 contexto.SaveChanges();
+            }
+                
         }
 
         public void Update(Territories t)
